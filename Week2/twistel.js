@@ -1,5 +1,8 @@
 "use strict";
 
+// based on "gasket" examples by Edward Angel
+// http://www.cs.unm.edu/~angel/COURSERA/CODE/EXAMPLES/
+
 var canvas;
 var gl;
 

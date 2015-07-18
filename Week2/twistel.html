@@ -2,16 +2,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-<title>2D Sierpinski Gasket</title>
+<title>Twisted Triangle</title>
 
 
 <script id="vertex-shader" type="x-shader/x-vertex">
 attribute vec4 vPosition;
+uniform float angle;
 
 void
 main()
 {
-    gl_Position = vPosition;
+	float r = length(vPosition);
+	float a = angle * r;
+	float cosa = cos(a);
+	float sina = sin(a);
+	vec4 vPosition2 = vec4(vPosition.x * cosa - vPosition.y * sina,
+					  vPosition.x * sina + vPosition.y * cosa,
+					  0.0, 1.0);
+	
+    gl_Position = vPosition2;
 }
 </script>
 
@@ -32,6 +41,19 @@ main()
 </head>   
 
 <body>
+
+<div>
+Level 0 <input id="depth" type="range" min="0" max="8" step="1" value="0" /> 8
+</div>
+
+<div>
+Twist 0 <input id="angle" type="range" min="0" max="1000" step="20" value="0" /> 1000
+</div>
+
+<div>
+<input id = "filled" type="checkbox" value="false"> Draw Filled
+</div>
+
 <canvas id="gl-canvas" width="512" height="512">
 Oops ... your browser doesn't support the HTML5 canvas element
 </canvas>

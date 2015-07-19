@@ -9,6 +9,9 @@ based on "gasket" examples by Edward Angel
 http://www.cs.unm.edu/~angel/COURSERA/CODE/EXAMPLES/
 -->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<link href='http://cdn.foundation5.zurb.com/foundation.css' rel='stylesheet' type='text/css'>
+
 <script id="vertex-shader" type="x-shader/x-vertex">
 attribute vec4 vPosition;
 uniform float angle;
@@ -16,7 +19,7 @@ uniform float angle;
 void
 main()
 {
-	float r = length(vPosition);
+	float r = length(vPosition.xy);
 	float a = angle * r;
 	float cosa = cos(a);
 	float sina = sin(a);
@@ -31,10 +34,12 @@ main()
 <script id="fragment-shader" type="x-shader/x-fragment">
 precision mediump float;
 
+uniform vec4 color;
+
 void
 main()
 {
-    gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
+    gl_FragColor = color;
 }
 </script>
 
@@ -47,19 +52,34 @@ main()
 <body>
 
 <div>
-Level 0 <input id="depth" type="range" min="0" max="8" step="1" value="0" /> 8
+<br>
 </div>
 
-<div>
-Twist 0 <input id="angle" type="range" min="0" max="1000" step="20" value="0" /> 1000
+<div class="row">
+  <div class="large-7 columns panel radius">
+	<canvas id="gl-canvas" width="512" height="512">
+	Oops ... your browser doesn't support the HTML5 canvas element
+	</canvas>
+  </div>
 </div>
 
-<div>
-<input id = "filled" type="checkbox" value="false"> Draw Filled
+<div class="row">
+  <div class="large-4 columns panel radius">
+	<div>
+		Level: <br> 0 <input id="depth" type="range" min="0" max="8" step="1" value="4" /> 8
+	</div>
+	<div>
+		Twist: <br> -1000 <input id="angle" type="range" min="-1000" max="1000" step="20" value="0" /> 1000
+	</div>
+	<div>
+		<input id = "filled" type="checkbox" value="false"> Draw Filled
+	</div>
+  </div>
 </div>
 
-<canvas id="gl-canvas" width="512" height="512">
-Oops ... your browser doesn't support the HTML5 canvas element
-</canvas>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="http://cdn.foundation5.zurb.com/foundation.js"></script>
+
 </body>
 </html>
